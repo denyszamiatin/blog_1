@@ -1,1 +1,5 @@
 curl -X POST http://localhost:5000/posts -H "Content-type: application/json" -d '{"title": "Title1", "body": "qef43231", "date": "2020-04-01T00:00"}' -v
+
+curl -X PUT http://localhost:5000/posts/077bbff8-eaf1-41ae-813f-93f871b03b9e -H "Content-type: application/json" -d '{"title": "Title2"}' -v
+
+curl http://localhost:5000/posts/077bbff8-eaf1-41ae-813f-93f871b03b9e  -v

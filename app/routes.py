@@ -19,9 +19,35 @@ class PostListApi(Resource):
         db.session.commit()
         return post_schema.dump(post), 201
 
-
     def get(self):
-        return {"message": "Hello"}
+        posts = db.session.query(models.Post).all()
+        return post_schema.dump(posts, many=True)
+
+
+class PostApi(Resource):
+    def get(self, uuid):
+        post = db.session.query(models.Post).filter_by(uuid=uuid).first()
+        if post is None:
+            return "", 404
+        return post_schema.dump(post)
+
+    def put(self, uuid):
+        post = db.session.query(models.Post).filter_by(uuid=uuid).first()
+        if post is None:
+            return "", 404
+        post = post_schema.load(request.json, instance=post, session=db.session)
+        db.session.add(post)
+        db.session.commit()
+        return post_schema.dump(post)
+
+    def delete(self, uuid):
+        post = db.session.query(models.Post).filter_by(uuid=uuid).first()
+        if post is None:
+            return "", 404
+        db.session.delete(post)
+        db.session.commit()
+        return "", 204
 
 
 api.add_resource(PostListApi, '/posts')
+api.add_resource(PostApi, '/posts/<uuid>')
