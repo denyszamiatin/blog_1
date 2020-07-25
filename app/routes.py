@@ -13,17 +13,19 @@ user_schema = schemas.UserSchema()
 
 class PostListApi(Resource):
 
-    def post(self):
+    @auth.token_required
+    def post(self, user):
         try:
             post = post_schema.load(request.json, session=db.session)
         except ValidationError as e:
             return {"message": str(e)}, 400
+        post.author = user
         db.session.add(post)
         db.session.commit()
         return post_schema.dump(post), 201
 
     @auth.token_required
-    def get(self, get):
+    def get(self, user):
         posts = db.session.query(models.Post).all()
         return post_schema.dump(posts, many=True)
 
