@@ -3,3 +3,7 @@ curl -X POST http://localhost:5000/posts -H "Content-type: application/json" -d 
 curl -X PUT http://localhost:5000/posts/077bbff8-eaf1-41ae-813f-93f871b03b9e -H "Content-type: application/json" -d '{"title": "Title2"}' -v
 
 curl http://localhost:5000/posts/077bbff8-eaf1-41ae-813f-93f871b03b9e  -v
+
+curl http://localhost:5000/login --user Bill:1 -v
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNTNkNTlkNTMtMzljZC00ZGE3LWE2YTEtNDE0NWZkMjRmZmQxIiwiZXhwIjoxNTk1Njk5ODEzfQ.ruq9auUoZBqWwTDk7_tJpV9k051IvpVW8OCgLh6RCqU
